@@ -160,11 +160,11 @@ const mutationResolvers = app => ({
   },
 
   async addItem(parent, args, {pgResource}, info) {
-    const {title, description, imageUrl} = args.item
+    const {title, description, imageUrl, itemowner} = args.item
     console.log('addItem run:!!!!!!!!!!!!!!' + JSON.stringify(imageUrl))
-    const newItem = await pgResource.saveNewItem({
-      title, description, imageUrl
-    });
+    const newItem = await pgResource.saveNewItem(
+      args.item
+    );
     return newItem;
   },
 });

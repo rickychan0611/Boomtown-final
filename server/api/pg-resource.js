@@ -28,11 +28,14 @@ module.exports = postgres => {
         }
       }
     },
-    async saveNewItem({ title, description, imageUrl }) {
-      console.log("saveNewItem RUN" + title, description, imageUrl)
+    async saveNewItem({ title, description, imageUrl, itemowner, created }) {
+      console.log("saveNewItem RUN  " + title, description, imageUrl, itemowner)
       const newItemInsert = {
-        text: "INSERT INTO items (title, description, imageurl) VALUES ($1, $2, $3) RETURNING *", // @TODO: Authentication - Server
-        values: [title, description, imageUrl],
+        text: `INSERT INTO items 
+        (title, description, imageurl, itemowner, created) 
+        VALUES ($1, $2, $3, $4, $5) 
+        RETURNING *`, // @TODO: Authentication - Server
+        values: [title, description, imageUrl, itemowner.id, created],
       };
       try {
         const item = await postgres.query(newItemInsert.text, newItemInsert.values);
