@@ -35,6 +35,15 @@ const queryResolvers = app => ({
       throw new ApolloError(e);
     }
   },
+  async owneritems(parent, { id }, { pgResource }, info) {
+    try {
+      console.log('item getOwnerItems run!!!!!')
+      const items = await pgResource.getOwnerItems(id);
+      return items;
+    } catch (e) {
+      throw new ApolloError(e);
+    }
+  },
   async tags(parent, { id }, { pgResource }, info)  {
     try {
       const tags = await pgResource.getTags(id);

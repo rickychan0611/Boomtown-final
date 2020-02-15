@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -7,16 +7,19 @@ import IconButton from '@material-ui/core/IconButton';
 import { useHistory } from 'react-router-dom'
 import { LOGOUT_MUTATION } from '../../apollo/queries';
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import ViewerProvider, { ViewerContext } from '../../context/ViewerProvider'
 
 
 export default function ProfileMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
+  // const [updateViewer] = useContext(ViewerContext)
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleLogout = () => {
+    // updateViewer('')
     history.push('/')
     setAnchorEl(null)
   };
