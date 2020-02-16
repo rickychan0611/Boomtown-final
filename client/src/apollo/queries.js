@@ -37,6 +37,7 @@ query GetItems ($id: ID){
    itemowner
    fullname
    created
+   tags
  }
 }
 `;

@@ -21,7 +21,7 @@ module.exports = gql`
     description: String
     itemowner: ID
     fullname:String
-    tags: [String]
+    tags: String
     created: Date
     borrower: User
   }
@@ -44,14 +44,7 @@ module.exports = gql`
     password: String
   }
   
-  type Tags {
-    tags : [Tag]
-  }
-
-  type Tag {
-    id: ID!
-    tag_title: String!
-  }
+ 
 
   type File {
     id: ID!
@@ -94,8 +87,6 @@ module.exports = gql`
     users: [User]
     items(id: ID): [Item]
     owneritems(id: ID): [Item]
-    tags: [Tag]
-    tag(id: ID!): Tag
   }
 
   input LoginInput {

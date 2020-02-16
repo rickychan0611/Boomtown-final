@@ -33,10 +33,10 @@ module.exports = postgres => {
       let tagObj = '{'
       tags.map((tag, index) => {
         if (index < tags.length-1){
-          tagObj = tagObj + "'" + tag + "',"
+          tagObj = tagObj + '"' + tag + '",'
         }
         if (index == tags.length-1){
-          tagObj = tagObj+ "'" + tag + "'}"
+          tagObj = tagObj+ '"' + tag + '"}'
         }
       })
       console.log('tagObj: ' + JSON.stringify(tagObj) )
@@ -184,28 +184,28 @@ module.exports = postgres => {
     //     throw "500 error. tags were not found";
     //   }
     // },
-    async getTagsForItem(id) {
-      try {
-        console.log('getTagsForItem run')
-        const tagsQuery = await postgres.query({
-          text:
-            `
-        SELECT * FROM tags_items
-        INNER JOIN items
-        ON tags_items.item_id = items.id
-        INNER JOIN tags
-        ON tags_items.tag_id = tags.id
-        WHERE items.id = $1
-        ` ,
-          values: [id],
-        });
-        console.log(tagsQuery.rows)
-        return tagsQuery.rows;
-      }
-      catch (e) {
-        throw e;
-      }
-    },
+    // async getTagsForItem(id) {
+    //   try {
+    //     console.log('getTagsForItem run')
+    //     const tagsQuery = await postgres.query({
+    //       text:
+    //         `
+    //     SELECT * FROM tags_items
+    //     INNER JOIN items
+    //     ON tags_items.item_id = items.id
+    //     INNER JOIN tags
+    //     ON tags_items.tag_id = tags.id
+    //     WHERE items.id = $1
+    //     ` ,
+    //       values: [id],
+    //     });
+    //     console.log(tagsQuery.rows)
+    //     return tagsQuery.rows;
+    //   }
+    //   catch (e) {
+    //     throw e;
+    //   }
+    // },
     // async saveNewItem({ item, user }) {
     //   console.log("saveNewItem triggered " + JSON.stringify(item))
       

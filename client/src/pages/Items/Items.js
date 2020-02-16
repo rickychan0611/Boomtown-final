@@ -12,7 +12,6 @@ import Grid from '@material-ui/core/Grid';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 
-
 const Items = ({ classes, item }) => {
   let options = {
     year: "numeric",
@@ -22,9 +21,10 @@ const Items = ({ classes, item }) => {
 
   console.log(item.tags)
   let formatedTags = ''
-  // formatedTags = item.tags.split("'")
-  console.log('formatedTags' + formatedTags)
-
+  formatedTags = item.tags.replace(/"/g, '')
+  formatedTags = formatedTags.replace(/{/g, '')
+  formatedTags = formatedTags.replace(/}/g, '')
+  formatedTags = formatedTags.replace(/,/g, ', ')
 
   return (
     <Grid item xs={12} sm={6} md={4}>
@@ -49,7 +49,7 @@ const Items = ({ classes, item }) => {
               {item.title}
           </Typography>
             <Typography gutterBottom variant="body2" color="textSecondary" component="p">
-              tag, tag, tag
+              {formatedTags}
           </Typography>
             <Typography gutterBottom variant="subtitle1" color="black" component="p" mt={8}>
             {item.description}

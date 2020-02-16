@@ -45,14 +45,14 @@ const queryResolvers = app => ({
       throw new ApolloError(e);
     }
   },
-  async tags(parent, { id }, { pgResource }, info)  {
-    try {
-      const tags = await pgResource.getTags(id);
-      return tags;
-    } catch (e) {
-      throw new ApolloError(e);
-    }
-  },
+  // async tags(parent, { id }, { pgResource }, info)  {
+  //   try {
+  //     const tags = await pgResource.getTags(id);
+  //     return tags;
+  //   } catch (e) {
+  //     throw new ApolloError(e);
+  //   }
+  // },
 });
 module.exports = queryResolvers;
 

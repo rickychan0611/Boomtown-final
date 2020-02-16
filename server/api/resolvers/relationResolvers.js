@@ -59,15 +59,15 @@ const relationResolvers = {
         throw new ApolloError(e);
       }
     },
-    async tags(parent, args, {pgResource}, info) {
-      // @TODO: Replace this mock return statement with the correct tags for the queried Item from Postgres
-      try {
-        const tags = await pgResource.getTagsForItem(parent.id);
-        return tags;
-      } catch (e) {
-        throw new ApolloError(e);
-      }    // -------------------------------
-    },
+    // async tags(parent, args, {pgResource}, info) {
+    //   // @TODO: Replace this mock return statement with the correct tags for the queried Item from Postgres
+    //   try {
+    //     const tags = await pgResource.getTagsForItem(parent.id);
+    //     return tags;
+    //   } catch (e) {
+    //     throw new ApolloError(e);
+    //   }    // -------------------------------
+    // },
     // async borrower(item) {
     //   /**
     //    * @TODO: Replace this mock return statement with the correct user from Postgres
