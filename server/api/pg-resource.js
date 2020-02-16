@@ -81,9 +81,10 @@ module.exports = postgres => {
       console.log('idToOmit' + idToOmit)
       try {
         const items = await postgres.query({
-          text: `SELECT * FROM items WHERE (itemowner != $1)`,
+          text: `SELECT * FROM items INNER JOIN users ON items.itemowner = users.id where (items.itemowner != $1)`,
           values: idToOmit ? [idToOmit] : [],
         });
+        // console.log('server item' + JSON.stringify(items.rows))
         return items.rows;
       }
       catch (e) {
@@ -146,13 +147,13 @@ module.exports = postgres => {
     },
     async getBorrower(id) {
       try {
-        console.log("getBorrower" + JSON.stringify(id))
+        // console.log("getBorrower" + JSON.stringify(id))
         const items = await postgres.query({
           text: `SELECT * FROM users 
         WHERE id = $1`,
           values: [id]
         });
-        console.log("id: " + id + JSON.stringify(items.rows[0]))
+        // console.log("id: " + id + JSON.stringify(items.rows[0]))
         return items.rows[0];
       }
       catch (e) {

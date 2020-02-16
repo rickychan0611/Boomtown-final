@@ -9,27 +9,30 @@ const queryResolvers = app => ({
   
   async user(parent, { id }, { pgResource, user }, info) {
     try {
-      console.log("user query run")
-      // app.use(cookieParser())
- 
-    // app.get('/', function (req, res) {
-    //   // Cookies that have not been signed
-    //   console.log('Cookies: ', req.cookies)
-    
-    //   // Cookies that have been signed
-    //   console.log('Signed Cookies: ', req.signedCookies)
-    // })
+      console.log("user query run" + id)
     console.log('from queries: ', user)
-      const userData = await pgResource.getUserById(user.id);
+      const userData = await pgResource.getUserById(id);
       return userData;
     } catch (e) {
       throw new ApolloError(e);
     }
   },
+
+  // async itemowner(parent, { id }, { pgResource, user }, info) {
+  //   try {
+  //     console.log("user query run" + id)
+  //   console.log('from queries: ', user)
+  //     const userData = await pgResource.getUserById(id);
+  //     return userData;
+  //   } catch (e) {
+  //     throw new ApolloError(e);
+  //   }
+  // },
+  
   async items(parent, { id }, { pgResource }, info) {
     try {
-      console.log('item query run!!!!!')
       const items = await pgResource.getItems(id);
+      console.log('item query run!!!!!' + JSON.stringify(items))
       return items;
     } catch (e) {
       throw new ApolloError(e);

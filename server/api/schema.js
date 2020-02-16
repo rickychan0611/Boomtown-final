@@ -19,7 +19,8 @@ module.exports = gql`
     title: String!
     imageurl: String
     description: String
-    itemowner: User
+    itemowner: ID
+    fullname:String
     tags: [Tag]
     created: Date
     borrower: User
@@ -30,17 +31,17 @@ module.exports = gql`
   }
 
   type Users {
-    items : [User]
+    users : [User]
   }
 
   type User {
-    id: ID!
-    email: String!
-    fullname: String!
+    id: ID
+    email: String
+    fullname: String
     bio: String
     items: [Item]
     borrowed: [Item]
-    password: String!
+    password: String
   }
   
   type Tags {
@@ -83,13 +84,14 @@ module.exports = gql`
     description: String
     tags: [AssignedTag]
     imageUrl: String
-    itemowner: AssignedOwner
+    itemowner: ID
     created: Date
   }
 
   type Query {
-    user(id: ID!): User 
+    user(id: ID!): User
     viewer: User
+    users: [User]
     items(id: ID): [Item]
     owneritems(id: ID): [Item]
     tags: [Tag]

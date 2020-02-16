@@ -29,11 +29,14 @@ const ItemsContainer = () => {
   const classes = useStyles();
   const {viewer} = useContext(ViewerContext)
   const {getUserId} = useContext(ViewerContext)
-console.log('viewer!!!!' + JSON.stringify(viewer))
+// console.log('viewer!!!!' + JSON.stringify(viewer))
   // const [viewerId, setViewerId] = useState()
   const { data, loading, error } = useQuery(ALL_ITEMS_QUERY,
     { variables: { id: viewer.user.id } });
-
+  
+  if (data) {
+    console.log('item data!!!' + JSON.stringify(data))
+  }
   if (loading) return <h1>LOADING...</h1>;
 
   if (error) {

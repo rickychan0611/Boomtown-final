@@ -12,14 +12,14 @@ import ViewerProvider, { ViewerContext } from '../../context/ViewerProvider'
 
 export default function ProfileMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
-  // const [updateViewer] = useContext(ViewerContext)
+  const {clearViewer} = useContext(ViewerContext)
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleLogout = () => {
-    // updateViewer('')
+    // clearViewer()
     history.push('/')
     setAnchorEl(null)
   };

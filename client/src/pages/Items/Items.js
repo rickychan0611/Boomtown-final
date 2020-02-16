@@ -26,11 +26,11 @@ const Items = ({ classes, item }) => {
           <CardHeader
             avatar={
               <Avatar aria-label="recipe" className={classes.avatar}>
-                R
+                {item.fullname.charAt(0)}
           </Avatar>
             }
-            title="Full name"
-            subheader="some time ago"
+            title={item.fullname}
+            subheader={"Added Date: " + new Date(item.created).toLocaleString()}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h3" m={0}>

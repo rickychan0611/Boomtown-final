@@ -34,10 +34,9 @@ query GetItems ($id: ID){
    title
    imageurl
    description
-   borrower{
-     id
-     fullname
-   }
+   itemowner
+   fullname
+   created
  }
 }
 `;
