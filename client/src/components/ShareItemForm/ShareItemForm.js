@@ -20,6 +20,9 @@ import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
 import SubmitDialog from './SubmitDialog'
+import firebase from 'firebase/app'
+import Firebase from '../Firebase'
+
 
 
 import { ADD_ITEM_MUTATION } from '../../apollo/queries';
@@ -68,6 +71,8 @@ const ShareItemForm = ({ classes }) => {
   const [item, setItem] = useState(null)
   const history = useHistory()
   const {viewer} = useContext(ViewerContext)
+  const {updatePreview} = useContext(ItemPreviewContext)
+  const [imgFile, setImgfile] = useState({})
 
 
   const onSubmitClicked = () => {
@@ -94,16 +99,81 @@ const ShareItemForm = ({ classes }) => {
     return <p>LOADING...</p>
   }
 
+  const uploadHandler = () => {
+
+  }
+
+  const fileChangedHandler = (event) => {
+    let file = event.target.files[0];// let files = event.target.files
+    console.log(file)
+    let filename = ''
+      filename = file.name
+      if (filename.lastIndexOf('.') <= 0) {
+        return alert('Please add a valid file!')
+      }
+      const ext = filename.slice(filename.lastIndexOf('.'))
+      let reader = new FileReader()
+      reader.onloadend = () => {
+        setImgfile({
+          file: file,
+          imagePreviewUrl: reader.result
+        });
+      }
+      reader.readAsDataURL(file)
+      // updatePreview('imageUrl', imgFile.imagePreviewUrl)
+      firebase.storage().ref('boomtown/' + filename).put(file)
+        .then((fileData) => { // then get downloadUrl
+          let storage = firebase.storage()
+          let urlRef = storage.ref('boomtown/' + filename)
+          urlRef.getDownloadURL().then(function (downloadURL) {
+            // item.refundImg = downloadURL
+            return downloadURL
+          })
+            .then((downloadURL) => {
+              console.log('downloadURL' + downloadURL)
+              updatePreview('imageUrl', downloadURL)
+              // firebase.database().ref('sellers/' + this.id + '/' + item.productName + '/' + item.buyer).update({ 'refundImg': downloadURL })
+            })
+            .then(() => {
+              // item.loading = false
+              // vm.$forceUpdate()
+            })
+        })
+
+  }
+
+  const onPickFile = () => {
+    // console.log(this.$refs.fileInput.click)
+    document.getElementById("file").click() // $refs = all ref in this file, in this case, ref="fileInput"
+  }
+  
+    let {imagePreviewUrl} = imgFile;
+    let imagePreview = null;
+    if (imagePreviewUrl) {
+      imagePreview = (<img src={imagePreviewUrl} />);
+    } else {
+      imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
+    }
+
   return (
+    
     <ItemPreviewContext.Consumer>
       {({ state, updatePreview, tagsData, resetPreview }) => {
         return (
+          
           <div>
             <h1 className={classes.h1}>Share. Borrow. Prosper.</h1>
-            <Button className={classes.imgButton} variant="contained" color="primary" >
+            <Button className={classes.imgButton} variant="contained" color="primary" 
+            onClick={onPickFile}>
               Upload your image
-          </Button>
-
+              <input style={{display: "none"}} id="file" type="file" 
+              accept="image/*"
+              onChange={fileChangedHandler}
+              />
+              </Button>
+              <div className="imgPreview">
+                {/* {imagePreview} */}
+              </div>
             <Form
               onSubmit={onSubmitClicked}
               validate={onValidateFunc}

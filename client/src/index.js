@@ -20,6 +20,7 @@ import AppRoutes from './routes'
 import ViewerProvider  from './context/ViewerProvider'
 import ItemPreviewProvider from './context/ItemPreviewProvider'
 
+import Firebase, { FirebaseContext } from './components/Firebase';
 
 import './index.css'
 // import logo from './images/boomtown.svg'
@@ -44,20 +45,22 @@ const useStyles = makeStyles(theme => ({
 const App = () => {
   const classes = useStyles();
   return (
-    <MuiThemeProvider theme={theme}>
-      <ItemPreviewProvider>
-        <ApolloProvider client={client}>
-          <ViewerProvider>
-            <BrowserRouter>
-              <CssBaseline />
-              <AuthLink />
-              <div className={classes.toolbar} />
-              <AppRoutes />
-            </ BrowserRouter>
-          </ViewerProvider>
-        </ ApolloProvider>
-      </ItemPreviewProvider>
-    </MuiThemeProvider>
+    <FirebaseContext.Provider value={new Firebase()}>
+      <MuiThemeProvider theme={theme}>
+        <ItemPreviewProvider>
+          <ApolloProvider client={client}>
+            <ViewerProvider>
+              <BrowserRouter>
+                <CssBaseline />
+                <AuthLink />
+                <div className={classes.toolbar} />
+                <AppRoutes />
+              </ BrowserRouter>
+            </ViewerProvider>
+          </ ApolloProvider>
+        </ItemPreviewProvider>
+      </MuiThemeProvider>
+    </FirebaseContext.Provider>
   );
 };
 

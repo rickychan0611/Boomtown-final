@@ -32,8 +32,8 @@ const Items = ({ classes, item }) => {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="https://bit.ly/2raEv6V"
-            title="Contemplative Reptile"
+            image={item.imageurl}
+            title={item.title}
           />
           <CardHeader
             avatar={

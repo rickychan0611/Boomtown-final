@@ -26,7 +26,7 @@ export class SharedItemPreview extends Component {
                                 <CardActionArea>
                                     <CardMedia
                                         className={classes.media}
-                                        image="https://bit.ly/2raEv6V"
+                                        image={item.imageUrl}
                                         title="Contemplative Reptile"
                                     />
                                     <CardHeader

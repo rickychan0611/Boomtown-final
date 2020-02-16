@@ -14,14 +14,15 @@ import Avatar from '@material-ui/core/Avatar';
 
 
 const OwnerItems = ({ classes, item }) => {
+  console.log('profile' + JSON.stringify(item))
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="https://bit.ly/2raEv6V"
-            title="Contemplative Reptile"
+            image={item.imageurl}
+            title={item.title}
           />
           <CardHeader
             avatar={
