@@ -77,12 +77,7 @@ export const ADD_ITEM_MUTATION = gql`
       title
       imageurl
       description
-      itemowner {
-        id
-      }
-      tags{
-        id
-      }
+      itemowner
       created
       borrower
       {

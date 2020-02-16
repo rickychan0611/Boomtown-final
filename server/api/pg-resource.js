@@ -35,7 +35,7 @@ module.exports = postgres => {
         (title, description, imageurl, itemowner, created) 
         VALUES ($1, $2, $3, $4, $5) 
         RETURNING *`, // @TODO: Authentication - Server
-        values: [title, description, imageUrl, itemowner.id, created],
+        values: [title, description, imageUrl, itemowner, created],
       };
       try {
         const item = await postgres.query(newItemInsert.text, newItemInsert.values);
@@ -60,7 +60,6 @@ module.exports = postgres => {
       }
     },
     async getUserById(id) {
-      console.log("GetUserByID")
       const findUserQuery = {
         text: `SELECT * FROM users WHERE id = $1`, // @TODO: Basic queries
         values: [id], //$1 is the 1st arrg in
@@ -101,7 +100,6 @@ module.exports = postgres => {
           text: `SELECT * FROM items WHERE (itemowner = $1)`,
           values: [id],
         });
-        console.log('item: '+ JSON.stringify(items.rows))
         return items.rows;
       }
       catch (e) {

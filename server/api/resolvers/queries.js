@@ -9,8 +9,6 @@ const queryResolvers = app => ({
   
   async user(parent, { id }, { pgResource, user }, info) {
     try {
-      console.log("user query run" + id)
-    console.log('from queries: ', user)
       const userData = await pgResource.getUserById(id);
       return userData;
     } catch (e) {

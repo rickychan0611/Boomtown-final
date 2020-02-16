@@ -21,7 +21,7 @@ const SubmitDialog = ( {classes, item} ) => {
 
   let newItem = {}
   newItem.item = item
-  newItem.item.itemowner = {"id": viewer.user.id}
+  newItem.item.itemowner = viewer.user.id
   console.log('newItem' + newItem)
 
   const [addItem, { data, loading, error }] = useMutation(ADD_ITEM_MUTATION)
