@@ -14,6 +14,18 @@ import Avatar from '@material-ui/core/Avatar';
 
 
 const Items = ({ classes, item }) => {
+  let options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "numeric"
+  };
+
+  console.log(item.tags)
+  let formatedTags = ''
+  // formatedTags = item.tags.split("'")
+  console.log('formatedTags' + formatedTags)
+
+
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.card}>
@@ -30,7 +42,7 @@ const Items = ({ classes, item }) => {
           </Avatar>
             }
             title={item.fullname}
-            subheader={"Added Date: " + new Date(item.created).toLocaleString()}
+            subheader={"Added Date: " + new Date(item.created).toLocaleString("en", options)}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h3" m={0}>

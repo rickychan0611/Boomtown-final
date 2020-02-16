@@ -21,7 +21,7 @@ module.exports = gql`
     description: String
     itemowner: ID
     fullname:String
-    tags: [Tag]
+    tags: [String]
     created: Date
     borrower: User
   }
@@ -82,7 +82,7 @@ module.exports = gql`
   input NewItemInput {
     title: String!
     description: String
-    tags: [AssignedTag]
+    tags: [String]
     imageUrl: String
     itemowner: ID
     created: Date

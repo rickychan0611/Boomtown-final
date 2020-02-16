@@ -34,9 +34,7 @@ const ItemsContainer = () => {
   const { data, loading, error } = useQuery(ALL_ITEMS_QUERY,
     { variables: { id: viewer.user.id } });
   
-  if (data) {
-    console.log('item data!!!' + JSON.stringify(data))
-  }
+  
   if (loading) return <h1>LOADING...</h1>;
 
   if (error) {
@@ -48,12 +46,20 @@ const ItemsContainer = () => {
     )
   }
   
+  if (data) {
+    console.log('item data!!!' + JSON.stringify(data))
+    let sortedItems = data.items
+    sortedItems.sort((a,b)=>{
+      return (
+        new Date(b.created) - new Date(a.created)
+      )
+    })
   return (
     <div className={classes.root}>
       <TopBar/>
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
-          {data.items.map(item => {
+          {sortedItems.map(item => {
             console.log("ALL" + item)
           return <Items item={item}/>
           })}
@@ -61,6 +67,7 @@ const ItemsContainer = () => {
       </Container>
     </div>
   )
+}
 }
 
 export default ItemsContainer;

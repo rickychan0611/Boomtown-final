@@ -28,14 +28,24 @@ module.exports = postgres => {
         }
       }
     },
-    async saveNewItem({ title, description, imageUrl, itemowner, created }) {
-      console.log("saveNewItem RUN  " + title, description, imageUrl, itemowner)
+    async saveNewItem({ title, description, imageUrl, itemowner, created, tags }) {
+      console.log("saveNewItem RUN  " + title, description, imageUrl, itemowner, tags)
+      let tagObj = '{'
+      tags.map((tag, index) => {
+        if (index < tags.length-1){
+          tagObj = tagObj + "'" + tag + "',"
+        }
+        if (index == tags.length-1){
+          tagObj = tagObj+ "'" + tag + "'}"
+        }
+      })
+      console.log('tagObj: ' + JSON.stringify(tagObj) )
       const newItemInsert = {
         text: `INSERT INTO items 
-        (title, description, imageurl, itemowner, created) 
-        VALUES ($1, $2, $3, $4, $5) 
+        (title, description, imageurl, itemowner, created, tags) 
+        VALUES ($1, $2, $3, $4, $5, $6) 
         RETURNING *`, // @TODO: Authentication - Server
-        values: [title, description, imageUrl, itemowner, created],
+        values: [title, description, imageUrl, itemowner, created, tagObj],
       };
       try {
         const item = await postgres.query(newItemInsert.text, newItemInsert.values);
@@ -80,7 +90,10 @@ module.exports = postgres => {
       console.log('idToOmit' + idToOmit)
       try {
         const items = await postgres.query({
-          text: `SELECT * FROM items INNER JOIN users ON items.itemowner = users.id where (items.itemowner != $1)`,
+          text: `SELECT * FROM items 
+          INNER JOIN users ON items.itemowner = users.id 
+          where (items.itemowner != $1)
+          `,
           values: idToOmit ? [idToOmit] : [],
         });
         // console.log('server item' + JSON.stringify(items.rows))
@@ -158,19 +171,19 @@ module.exports = postgres => {
         throw e + "500 error. borrower id were not found";
       }
     },
-    async getTags() {
-      try {
-        // console.log('getTags')
-        const tags = await postgres.query({
-          text: "SELECT * FROM tags",
-          values: [],
-        });
-        return tags.rows;
-      }
-      catch (e) {
-        throw "500 error. tags were not found";
-      }
-    },
+    // async getTags() {
+    //   try {
+    //     // console.log('getTags')
+    //     const tags = await postgres.query({
+    //       text: "SELECT * FROM tags",
+    //       values: [],
+    //     });
+    //     return tags.rows;
+    //   }
+    //   catch (e) {
+    //     throw "500 error. tags were not found";
+    //   }
+    // },
     async getTagsForItem(id) {
       try {
         console.log('getTagsForItem run')
