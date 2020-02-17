@@ -43,17 +43,34 @@ query GetItems ($id: ID){
 `;
 
 export const OWNER_ITEMS_QUERY = gql`
-query GetOwnerItems ($id: ID){
-  owneritems (id: $id){
-   id
-   title
-   imageurl
-   description
-   borrower
+query GetOwnerItems {
+  owneritems {
+    id
+    title
+    imageurl
+    description
+    itemowner
+    fullname
+    created
+    tags
  }
 }
 `;
 
+export const BORROWED_ITEMS_QUERY = gql`
+query GetBorrowedItems {
+  borroweditems {
+    id
+    title
+    imageurl
+    description
+    itemowner
+    fullname
+    created
+    tags
+ }
+}
+`;
 // export const ALL_USER_ITEMS_QUERY = gql`
 //   query user($id: ID!) {
 //     # @TODO: Query the bio, email, fullname, items, and borrowed for the user by id

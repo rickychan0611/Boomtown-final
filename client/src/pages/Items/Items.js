@@ -31,6 +31,12 @@ const Items = ({ classes, item }) => {
   formatedTags = formatedTags.replace(/}/g, '')
   formatedTags = formatedTags.replace(/,/g, ', ')
 
+  const randomAvatar = () => {
+    const num = Math.floor(Math.random() * 10)
+    const url = 'https://avatars.dicebear.com/v2/human/'+num+'.svg'
+    return url
+  }
+
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.card}>
@@ -42,9 +48,10 @@ const Items = ({ classes, item }) => {
           />
           <CardHeader
             avatar={
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                {item.fullname.charAt(0)}
-          </Avatar>
+              <Avatar aria-label="recipe" className={classes.avatar} 
+                src={randomAvatar()}
+                >
+                </Avatar> 
             }
             title={item.fullname}
             subheader={"Added Date: " + new Date(item.created).toLocaleString("en", options)}

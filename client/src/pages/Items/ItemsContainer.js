@@ -59,9 +59,8 @@ const ItemsContainer = () => {
       <TopBar/>
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
-          {sortedItems.map(item => {
-            console.log("ALL" + item)
-          return <Items item={item}/>
+          {sortedItems.map((item, index) => {
+          return <Items item={item} key={index}/>
           })}
         </Grid>
       </Container>

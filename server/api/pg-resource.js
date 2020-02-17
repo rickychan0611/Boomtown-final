@@ -123,10 +123,30 @@ module.exports = postgres => {
 
      //GET OWNER ITEMS
      async getOwnerItems(id) {
-      console.log('getOwnerItems ID: ' + id)
+      // console.log('getOwnerItems ID: ' + id)
       try {
         const items = await postgres.query({
           text: `SELECT * FROM items WHERE (itemowner = $1)`,
+          values: [id],
+        });
+        // console.log('getOwnerItems ID: ' + JSON.stringify(items.rows))
+
+        return items.rows;
+      }
+      catch (e) {
+        console.log(e)
+        throw "500 error. items were not found, dude!";
+      }
+    },
+
+    async GetBorrowedItems(id) {
+      console.log('GetBorrowedItems ID: ' + id)
+      try {
+        const items = await postgres.query({
+          text: `SELECT * FROM users 
+          INNER JOIN items ON items.itemowner = users.id 
+          where (items.borrower = $1)
+          `,
           values: [id],
         });
         return items.rows;
@@ -136,8 +156,7 @@ module.exports = postgres => {
         throw "500 error. items were not found, dude!";
       }
     },
-
-
+    
     async getItemsForUser(id) {
       try {
 

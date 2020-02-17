@@ -11,29 +11,36 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { useQuery } from '@apollo/react-hooks';
 import { OWNER_ITEMS_QUERY } from '../../apollo/queries';
+import { BORROWED_ITEMS_QUERY } from '../../apollo/queries';
+
 
 const Profile = ({id, classes}) => {
   const {viewer} = useContext(ViewerContext)
   const {state} = useContext(ItemPreviewContext)
-  const { data, loading, error } = useQuery(OWNER_ITEMS_QUERY);
 
-  if (loading) return <h1>LOADING...</h1>;
-  if (error) {
+  const { data: sharedData, loading: l1, error: e1 } = useQuery(OWNER_ITEMS_QUERY);
+  const { data: borrowedData, loading: l2, error: e2 } = useQuery(BORROWED_ITEMS_QUERY);
+
+  if (l1 || l2) return <h1>LOADING...</h1>;
+  if (e1 || e2) {
     return (
       <div>
         <p>ERROR in item</p>
-        <p>{JSON.stringify(error)}</p>
+        <p>{JSON.stringify(e1, e2)}</p>
       </div>
     )
   }
   
-  if (data){
-  console.log('11PROFILE' + data)
+  if (borrowedData) {
+    console.log('!!!!!!!!!!!!!' + JSON.stringify(borrowedData))
   }
-  // useEffect (()=>{
 
-  // },[])
-
+  const randomAvatar = () => {
+    const num = Math.floor(Math.random() * 10)
+    const url = 'https://avatars.dicebear.com/v2/human/'+num+'.svg'
+    return url
+  }
+  
   return (
     <ViewerContext.Consumer>
     {({viewer}) => {
@@ -54,9 +61,8 @@ const Profile = ({id, classes}) => {
             <Grid container wrap="nowrap" spacing={2}>
               <Grid item>
                 <Avatar aria-label="recipe" className={classes.avatar} 
-                src="https://www.gravatar.com/avatar/e9588c04071bf3a157207bb2c11fbbb9?d=retro&r=g&s=100"
+                src={randomAvatar()}
                 >
-                  {/* {fullname.slice(0, 1)} */}
                 </Avatar> 
               </Grid>
               <Grid item xs>
@@ -66,23 +72,37 @@ const Profile = ({id, classes}) => {
               </Grid>
               </Grid>
               <Typography component="h3">
-                3 Items shared 0 Items borrowed
+                {sharedData.owneritems.length} items shared,  {borrowedData.length} items borrowed
               </Typography>
               <Typography component="h5">
                 "No bio provided."
               </Typography>
             </Paper>
-            <br/><br/>
-            <Typography variant="h3" color="primary">
-              Shared Items:
+            {borrowedData.borroweditems.length > 0? 
+            <div>
+              <br/><br/>
+              <Typography variant="h3" color="primary">
+                Borrowed Items:
               </Typography>
-              <br/>
               <Grid container spacing={3}>
-              {data.owneritems.map(item => {
+              {borrowedData.borroweditems.map(item => {
                 return <OwnerItems item={item}/>
                 })}
               </Grid>
+              </div> : null}
               
+              {sharedData.owneritems? 
+              <div>
+                <br/><br/>
+              <Typography variant="h3" color="primary">
+                Shared Items:
+              </Typography>
+              <Grid container spacing={3}>
+              {sharedData.owneritems.map(item => {
+                return <OwnerItems item={item}/>
+                })}
+              </Grid>
+              </div> : null}
             </Container>
             
           </div>

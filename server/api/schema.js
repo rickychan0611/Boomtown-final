@@ -102,6 +102,7 @@ module.exports = gql`
     users: [User]
     items(id: ID): [Item]
     owneritems(id: ID): [Item]
+    borroweditems(id: ID): [Item]
   }
 
   input LoginInput {
