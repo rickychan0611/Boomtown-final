@@ -11,6 +11,10 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import { BORROW_MUTATION } from '../../apollo/queries';
+import { useMutation } from '@apollo/react-hooks';
+import { useHistory } from "react-router-dom";
+
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -61,6 +65,8 @@ Fade.propTypes = {
 };
 
 const BorrowButtonModal = ({item, viewer}) => {
+  const [borrowItem, { data, loading, error }] = useMutation(BORROW_MUTATION)
+
   console.log('button viewer: ' + JSON.stringify(viewer))
   console.log('button item: ' + JSON.stringify(item))
 
@@ -73,6 +79,29 @@ const BorrowButtonModal = ({item, viewer}) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  let newItem = {}
+  newItem.item = item
+  newItem.item.borrower = viewer.user.id
+  console.log('newItem' + newItem)
+  delete newItem.item.__typename
+  // let newItem = {}
+  // // newItem.item.id = item.id
+  // newItem.item.title = item.title
+  // newItem.item.description = item.description
+  // newItem.item.imageurl = item.imageurl
+  // newItem.item.itemowner = item.itemowner
+  // newItem.item.created = item.created
+  // newItem.item.fullname = item.fullname
+  // newItem.item.borrower = viewer.user.id
+  // let borrower = {}
+  // borrower = viewer.user.id
+  
+  const handleBorrow = () => {
+    console.log('BORROW_MUTATION ' + JSON.stringify(newItem ))
+    setOpen(false);
+    borrowItem({variables: newItem})
   };
 
   return (
@@ -108,10 +137,10 @@ const BorrowButtonModal = ({item, viewer}) => {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="larege" color="primary">
+              <Button size="large" variant="outlined" color="primary" onClick={handleBorrow}>
                 Yes, borrow it!
               </Button>
-              <Button size="larege" color="primary" onClick={()=>{setOpen(false)}}>
+              <Button size="large" variant="outlined" color="primary" onClick={()=>{setOpen(false)}}>
                 Cancel
               </Button>
             </CardActions>

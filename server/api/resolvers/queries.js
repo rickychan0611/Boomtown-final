@@ -30,7 +30,7 @@ const queryResolvers = app => ({
   async items(parent, { id }, { pgResource }, info) {
     try {
       const items = await pgResource.getItems(id);
-      console.log('item query run!!!!!' + JSON.stringify(items))
+      // console.log('item query run!!!!!' + JSON.stringify(items))
       return items;
     } catch (e) {
       throw new ApolloError(e);

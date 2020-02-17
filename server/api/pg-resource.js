@@ -55,6 +55,35 @@ module.exports = postgres => {
         console.log(e)
       }
     },
+
+    async borrowItem({ title, description, imageUrl, itemowner, created, tags, borrower, id }) {
+      console.log("borrowItem RUN  " + id + ' ' + borrower)
+      let tagObj = '{'
+      tags.map((tag, index) => {
+        if (index < tags.length-1){
+          tagObj = tagObj + '"' + tag + '",'
+        }
+        if (index == tags.length-1){
+          tagObj = tagObj+ '"' + tag + '"}'
+        }
+      })
+      console.log('tagObj: ' + JSON.stringify(tagObj) )
+      const newItemInsert = {
+        text: `INSERT INTO items 
+        (title, description, imageurl, itemowner, created, tags) 
+        VALUES ($1, $2, $3, $4, $5, $6) 
+        RETURNING *`, // @TODO: Authentication - Server
+        values: [title, description, imageUrl, itemowner, created, tagObj],
+      };
+      try {
+        const item = await postgres.query(newItemInsert.text, newItemInsert.values);
+        console.log("New ITEM created: " + item.rows[0].title)
+        return item.rows[0];
+      } catch (e) {
+        console.log(e)
+      }
+    },
+
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
         text: "SELECT * FROM users WHERE email = $1", // @TODO: Authentication - Server

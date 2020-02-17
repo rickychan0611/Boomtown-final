@@ -81,13 +81,23 @@ export const ADD_ITEM_MUTATION = gql`
       itemowner
       created
       borrower
-      {
-        id
-      }
     }
   }
 `
-
+export const BORROW_MUTATION = gql`
+  mutation borrowItem($item: BorrowInput!) {
+    borrowItem(item: $item) {
+      id
+      title
+      imageurl
+      description
+      itemowner
+      created
+      borrower
+      fullname
+    }
+  }
+`
 // /**
 //  * Auth-related queries and mutations.
 //  */

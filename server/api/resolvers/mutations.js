@@ -167,5 +167,14 @@ const mutationResolvers = app => ({
     );
     return newItem;
   },
+
+  async borrowItem(parent, args, {pgResource}, info) {
+    const {title, description, imageUrl, itemowner, borrower} = args.item
+    console.log('borrowItem run:!!!!!!!!!!!!!!' + JSON.stringify(borrower))
+    const newItem = await pgResource.borrowItem(
+      args.item
+    );
+    return newItem;
+  },
 });
 module.exports = mutationResolvers;
