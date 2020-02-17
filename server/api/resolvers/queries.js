@@ -9,7 +9,7 @@ const queryResolvers = app => ({
   
   async user(parent, { id }, { pgResource, user }, info) {
     try {
-      const userData = await pgResource.getUserById(id);
+      const userData = await pgResource.getUserById(user.id);
       return userData;
     } catch (e) {
       throw new ApolloError(e);
@@ -27,19 +27,20 @@ const queryResolvers = app => ({
   //   }
   // },
   
-  async items(parent, { id }, { pgResource }, info) {
+  async items(parent, { id }, { pgResource, user }, info) {
     try {
-      const items = await pgResource.getItems(id);
-      // console.log('item query run!!!!!' + JSON.stringify(items))
+      const items = await pgResource.getItems(id
+        );
+      console.log('item query run!!!!!' + JSON.stringify(user))
       return items;
     } catch (e) {
       throw new ApolloError(e);
     }
   },
-  async owneritems(parent, { id }, { pgResource }, info) {
+  async owneritems(parent, { id }, { pgResource, user }, info) {
     try {
       console.log('item getOwnerItems run!!!!!')
-      const items = await pgResource.getOwnerItems(id);
+      const items = await pgResource.getOwnerItems(user.id);
       return items;
     } catch (e) {
       throw new ApolloError(e);

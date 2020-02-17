@@ -15,8 +15,7 @@ import { OWNER_ITEMS_QUERY } from '../../apollo/queries';
 const Profile = ({id, classes}) => {
   const {viewer} = useContext(ViewerContext)
   const {state} = useContext(ItemPreviewContext)
-  const { data, loading, error } = useQuery(OWNER_ITEMS_QUERY,
-    { variables: { id: viewer.user.id } });
+  const { data, loading, error } = useQuery(OWNER_ITEMS_QUERY);
 
   if (loading) return <h1>LOADING...</h1>;
   if (error) {
@@ -28,6 +27,9 @@ const Profile = ({id, classes}) => {
     )
   }
   
+  if (data){
+  console.log('11PROFILE' + data)
+  }
   // useEffect (()=>{
 
   // },[])

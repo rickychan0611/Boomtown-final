@@ -56,28 +56,15 @@ module.exports = postgres => {
       }
     },
 
-    async borrowItem({ title, description, imageUrl, itemowner, created, tags, borrower, id }) {
-      console.log("borrowItem RUN  " + id + ' ' + borrower)
-      let tagObj = '{'
-      tags.map((tag, index) => {
-        if (index < tags.length-1){
-          tagObj = tagObj + '"' + tag + '",'
-        }
-        if (index == tags.length-1){
-          tagObj = tagObj+ '"' + tag + '"}'
-        }
-      })
-      console.log('tagObj: ' + JSON.stringify(tagObj) )
-      const newItemInsert = {
-        text: `INSERT INTO items 
-        (title, description, imageurl, itemowner, created, tags) 
-        VALUES ($1, $2, $3, $4, $5, $6) 
-        RETURNING *`, 
-        values: [title, description, imageUrl, itemowner, created, tagObj],
+    async borrowItem(itemId, borrowerId) {
+      console.log("borrowItem RUN  " + itemId + ' ' + borrowerId)
+      const setBorrower = {
+        text: `UPDATE items SET borrower = $2 WHERE id = $1 RETURNING *`, 
+        values: [itemId, borrowerId],
       };
       try {
-        const item = await postgres.query(newItemInsert.text, newItemInsert.values);
-        console.log("New ITEM created: " + item.rows[0].title)
+        const item = await postgres.query(setBorrower.text, setBorrower.values);
+        console.log("Borrow Inserted: " + item.rows[0].title)
         return item.rows[0];
       } catch (e) {
         console.log(e)
@@ -119,8 +106,8 @@ module.exports = postgres => {
       console.log('idToOmit' + idToOmit)
       try {
         const items = await postgres.query({
-          text: `SELECT * FROM items 
-          INNER JOIN users ON items.itemowner = users.id 
+          text: `SELECT * FROM users 
+          INNER JOIN items ON items.itemowner = users.id 
           where (items.itemowner != $1)
           `,
           values: idToOmit ? [idToOmit] : [],
