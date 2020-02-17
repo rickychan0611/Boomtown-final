@@ -72,7 +72,7 @@ module.exports = postgres => {
         text: `INSERT INTO items 
         (title, description, imageurl, itemowner, created, tags) 
         VALUES ($1, $2, $3, $4, $5, $6) 
-        RETURNING *`, // @TODO: Authentication - Server
+        RETURNING *`, 
         values: [title, description, imageUrl, itemowner, created, tagObj],
       };
       try {

@@ -49,10 +49,7 @@ query GetOwnerItems ($id: ID){
    title
    imageurl
    description
-   borrower{
-     id
-     fullname
-   }
+   borrower
  }
 }
 `;
