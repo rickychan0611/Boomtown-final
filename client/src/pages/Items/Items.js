@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import Card from '@material-ui/core/Card';
@@ -11,8 +11,13 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
+import BorrowButtonModal from '../../components/BorrowButtonModal'
+import ViewerProvider, { ViewerContext } from '../../context/ViewerProvider'
+
 
 const Items = ({ classes, item }) => {
+  const {viewer} = useContext(ViewerContext)
+
   let options = {
     year: "numeric",
     month: "2-digit",
@@ -57,9 +62,9 @@ const Items = ({ classes, item }) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button variant="outlined" size="large" color="primary" className={classes.margin}>
-            Borrow
-        </Button>
+          <BorrowButtonModal 
+          item={item}
+          viewer={viewer}/>
         </CardActions>
       </Card>
     </Grid>

@@ -8,7 +8,7 @@ const initialState = {
     title: 'Enter item name',
     description: 'Describe your item',
     tags: [],
-    imageUrl: 'http://via.placeholder.com/300',
+    imageUrl: 'https://www.7pace.com/wp-content/uploads/2019/08/cover-abstract-thinking.png',
     itemowner: "2",
     created: new Date()
 }
