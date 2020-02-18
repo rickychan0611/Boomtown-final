@@ -6,25 +6,19 @@ import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import TextField from '@material-ui/core/TextField';
 import React, { useState,useContext } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useMutation } from '@apollo/react-hooks';
-import { Link, withRouter, useHistory } from "react-router-dom";
-import { Redirect, Route, Switch } from 'react-router';
+import { useHistory } from "react-router-dom";
 import { Form, Field } from 'react-final-form'
 import styles from './styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-import Chip from '@material-ui/core/Chip';
 import SubmitDialog from './SubmitDialog'
 import firebase from 'firebase/app'
-import Firebase from '../Firebase'
-
-
-
+import { OWNER_ITEMS_QUERY } from '../../apollo/queries';
 import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 
 const onValidateFunc = values => {
@@ -43,12 +37,6 @@ const MenuProps = {
 };
 
 const tags = [
-  // {id: 1, title: 'Household Items'},
-  // {id: 2, title: 'Tools'},
-  // {id: 3, title: 'Electronics'},
-  // {id: 4, title: 'Physical Media'},
-  // {id: 5, title: 'Sporting Goods'},
-  // {id: 6, title: 'Musical Instrument'},
   'Tools',
   'Electronics',
   'Physical Media',
@@ -90,18 +78,12 @@ const ShareItemForm = ({ classes }) => {
     }
   }
 
-  const [addItem, { data, loading, error }] = useMutation(ADD_ITEM_MUTATION)
-  if (error) {
-    // return <p>ERROR</p>;
-  }
-  console.log('addItem return data : ' + data)
-  if (loading) {
-    return <p>LOADING...</p>
-  }
-
-  const uploadHandler = () => {
-
-  }
+  const [ addItem ] = useMutation(ADD_ITEM_MUTATION, {
+    refetchQueries: () => [{
+        query: OWNER_ITEMS_QUERY,
+    }],
+    // onCompleted: refetch,
+  })
 
   const fileChangedHandler = (event) => {
     let file = event.target.files[0];// let files = event.target.files
