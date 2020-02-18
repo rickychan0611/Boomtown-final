@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import OwnerItems from './OwnerItems'
 import {ViewerContext} from '../../context/ViewerProvider';
-import {ItemPreviewContext} from '../../context/ItemPreviewProvider';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
@@ -13,10 +12,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { OWNER_ITEMS_QUERY } from '../../apollo/queries';
 import { BORROWED_ITEMS_QUERY } from '../../apollo/queries';
 
-
-const Profile = ({id, classes}) => {
-  const {viewer} = useContext(ViewerContext)
-  const {state} = useContext(ItemPreviewContext)
+const Profile = ({classes}) => {
 
   const { data: sharedData, loading: l1, error: e1 } = useQuery(OWNER_ITEMS_QUERY);
   const { data: borrowedData, loading: l2, error: e2 } = useQuery(BORROWED_ITEMS_QUERY);
@@ -31,10 +27,6 @@ const Profile = ({id, classes}) => {
     )
   }
   
-  if (borrowedData) {
-    console.log('!!!!!!!!!!!!!' + JSON.stringify(borrowedData))
-  }
-
   const randomAvatar = () => {
     const num = Math.floor(Math.random() * 10)
     const url = 'https://avatars.dicebear.com/v2/human/'+num+'.svg'
@@ -72,7 +64,7 @@ const Profile = ({id, classes}) => {
               </Grid>
               </Grid>
               <Typography component="h3">
-                {sharedData.owneritems.length} items shared,  {borrowedData.length} items borrowed
+                {sharedData.owneritems.length} items shared,  {borrowedData.borroweditems.length} items borrowed
               </Typography>
               <Typography component="h5">
                 "No bio provided."

@@ -5,26 +5,16 @@ import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { Link, withRouter, useHistory, Redirect } from "react-router-dom";
-import { Route, Switch } from 'react-router';
-import ViewerProvider, { ViewerContext } from '../../context/ViewerProvider'
-
-import Items from '../../pages/Items';
-import TextField from '@material-ui/core/TextField';
-
-
-/**
- * @TODO: Uncomment the following lines when authentication is added to the form
- */
+import { useMutation } from '@apollo/react-hooks';
+import { useHistory, Redirect } from "react-router-dom";
+import { ViewerContext } from '../../context/ViewerProvider'
 import { Form, Field } from 'react-final-form'
 
 import {
   LOGIN_MUTATION,
   SIGNUP_MUTATION,
-  VIEWER_QUERY
 } from '../../apollo/queries';
 import { graphql, compose } from 'react-apollo';
 import validate from './helpers/validation'
@@ -43,34 +33,27 @@ const AccountForm = ({ classes }) => {
     // <Redirect to='/items' />
   }
   let validEmailMsg = ''
-
   const onValidateFunc = values => {
-    // console.log('validate!!: ' + errorMsg + JSON.stringify(values))
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email))
     {
       validEmailMsg = "Your email is valid"
-      console.log('good')
     }
     else {
       validEmailMsg = "Invalid email address"
-      console.log('bad')
     }
   }
-
-  // console.log('class ' + props)
 
   const [signUp, { data: signUpData, loading: signUpoading, error: signUpError }] = useMutation(SIGNUP_MUTATION)
   const [login, { data: viewerData, loading:loginLoading, error: loginError }] = useMutation(LOGIN_MUTATION)
 
-  if (signUpError) {
-    return <p>signUpError</p>;
-  }
+  // if (signUpError || loginError) {
+  //   // setErrorMsg("User not found")
+  //   return <Redirect to="/" />
+  // }
 
   if (loginLoading || signUpoading){
     return <h1>Loading...</h1>
   }
-  //when logged in
-  console.log('auth link'+ JSON.stringify(viewerData))
 
   if (viewerData) {
     return (
@@ -91,12 +74,10 @@ const AccountForm = ({ classes }) => {
   }
 
   const onSumbit = values => {
-    setErrorMsg('User was not found. Please try again')
+    setErrorMsg('User was not found. Invalid e-mail or password. Please try again')
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email))
     {
-      // validEmailMsg = "Your email is valid"
       setEmailError('')
-      console.log('good')
       formToggle ?
         login({ variables: { user: values } }) :
         signUp({ variables: { user: values } })
@@ -118,7 +99,6 @@ const AccountForm = ({ classes }) => {
         >
           {!formToggle && (
             <FormControl fullWidth className={classes.formControl}>
-              {/* @TODO: Wrap in a Final Form <Field /> */}
 
               <Field name="fullname" render={({ input, meta }) => (
                 <div>
@@ -152,14 +132,13 @@ const AccountForm = ({ classes }) => {
                   }}
                   value={input.value}
                   {...input}
-                  error ={true}
+                  error = {true}
                 />
               <FormHelperText error>{emailError}</FormHelperText>
               </div>
             )}
             />
 
-            {/* @TODO: Close Final Form <Field /> */}
           </FormControl>
 
           <FormControl fullWidth className={classes.formControl}>
@@ -175,11 +154,12 @@ const AccountForm = ({ classes }) => {
                   }}
                   value={input.value}
                   {...input}
+                  error = {true}
                 />
+                <FormHelperText error>{errorMsg}</FormHelperText>
               </div>
             )}
             />
-            {/* @TODO: Close Final Form <Field /> */}
           </FormControl>
 
           <FormControl className={classes.formControl}>
@@ -201,9 +181,8 @@ const AccountForm = ({ classes }) => {
                 size="large"
                 color="secondary"
                 disabled={
-                  false // @TODO: This prop should depend on pristine or valid state of form
+                  false  
                 }
-              // onClick={loginClicked}
               >
                 {formToggle ? 'Enter' : 'Create Account'}
               </Button>
@@ -231,11 +210,4 @@ const AccountForm = ({ classes }) => {
   )
 }
 
-
-
-// @TODO: Use compose to add the login and signup mutations to this components props.
-// export default compose(
-//   graphql
-// )
-// @TODO: Refetch the VIEWER_QUERY to reload the app and access authenticated routes.
 export default withStyles(styles)(AccountForm);

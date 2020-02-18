@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Share from './Share';
 import TopBar from '../../components/TopBar/TopBar'
 import { makeStyles } from '@material-ui/core/styles';
-import styles from './styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -14,8 +13,8 @@ const useStyles = makeStyles(theme => ({
       padding: "20px"
     },
   offset: theme.mixins.toolbar
-  
 }))
+
 const ShareContainer = ()=> {
     const classes = useStyles();
     return (
@@ -28,6 +27,5 @@ const ShareContainer = ()=> {
     )
 }
 
-// export default ShareContainer;
 export default ShareContainer;
 
