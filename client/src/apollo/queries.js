@@ -38,6 +38,7 @@ query GetItems ($id: ID){
    fullname
    created
    tags
+   avatar
  }
 }
 `;
@@ -53,6 +54,7 @@ query GetOwnerItems ($id: ID){
     fullname
     created
     tags
+    avatar
  }
 }
 `;
@@ -68,6 +70,7 @@ query GetBorrowedItems ($id: ID){
     fullname
     created
     tags
+    avatar
  }
 }
 `;

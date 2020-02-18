@@ -24,6 +24,7 @@ module.exports = gql`
     tags: String
     created: Date
     borrower: ID
+    avatar: String
   }
 
   type Items {
@@ -83,6 +84,7 @@ module.exports = gql`
     imageUrl: String
     itemowner: ID
     created: Date
+    avatar: String
   }
 
   input BorrowInput {
@@ -95,6 +97,7 @@ module.exports = gql`
     created: Date
     fullname: String
     borrower: ID
+    avatar: String
   }
 
   type Query {

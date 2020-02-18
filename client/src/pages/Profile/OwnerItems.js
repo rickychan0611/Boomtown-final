@@ -62,7 +62,7 @@ const OwnerItems = ({ classes, item }) => {
           <CardHeader
             avatar={
               <Avatar aria-label="recipe" className={classes.avatar} 
-                src={randomAvatar()}
+                src={item.avatar}
                 >
                 </Avatar> 
             }

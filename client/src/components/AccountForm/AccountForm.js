@@ -73,7 +73,7 @@ const AccountForm = ({ classes }) => {
     return <Redirect to="/items" />
   }
   const randomAvatar = () => {
-    const num = Math.floor(Math.random() * 10)
+    const num = Math.floor(Math.random() * 100)
     const url = 'https://avatars.dicebear.com/v2/identicon/'+num+'.svg'
     return url
   }
