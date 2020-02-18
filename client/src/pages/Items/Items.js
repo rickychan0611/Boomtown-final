@@ -43,7 +43,7 @@ const Items = ({ classes, item }) => {
   const history = useHistory()
 
   const handleUserClicked = (userId) => {
-    history.push('/owner-profile:' + userId)
+    history.push('/profile:' + userId)
     // return (
     //   <Redirect to='/profile' />
     // // <Route path="/profile" component={Profile} />

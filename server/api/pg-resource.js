@@ -126,10 +126,13 @@ module.exports = postgres => {
       // console.log('getOwnerItems ID: ' + id)
       try {
         const items = await postgres.query({
-          text: `SELECT * FROM items WHERE (itemowner = $1)`,
+          text: `SELECT * FROM users 
+          INNER JOIN items ON items.itemowner = users.id 
+          where (items.itemowner = $1)
+          `,
           values: [id],
         });
-        // console.log('getOwnerItems ID: ' + JSON.stringify(items.rows))
+        console.log('getOwnerItems ID: ' + JSON.stringify(items.rows))
 
         return items.rows;
       }
@@ -169,7 +172,7 @@ module.exports = postgres => {
           values: [id],
         });
 
-        console.log(items.rows)
+        // console.log(items.rows)
         return items.rows;
       } catch (e) {
         throw "500 error. items were not found, dude!";

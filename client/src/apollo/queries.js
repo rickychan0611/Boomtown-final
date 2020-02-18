@@ -43,8 +43,8 @@ query GetItems ($id: ID){
 `;
 
 export const OWNER_ITEMS_QUERY = gql`
-query GetOwnerItems {
-  owneritems {
+query GetOwnerItems ($id: ID){
+  owneritems (id: $id){
     id
     title
     imageurl
@@ -58,8 +58,8 @@ query GetOwnerItems {
 `;
 
 export const BORROWED_ITEMS_QUERY = gql`
-query GetBorrowedItems {
-  borroweditems {
+query GetBorrowedItems ($id: ID){
+  borroweditems (id: $id){
     id
     title
     imageurl

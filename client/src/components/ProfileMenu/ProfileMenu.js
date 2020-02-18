@@ -12,7 +12,7 @@ import ViewerProvider, { ViewerContext } from '../../context/ViewerProvider'
 
 export default function ProfileMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const {clearViewer} = useContext(ViewerContext)
+  const {viewer} = useContext(ViewerContext)
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -25,8 +25,8 @@ export default function ProfileMenu() {
   };
 
   const history = useHistory()
-  const profileButtonHandler = () => {
-    history.push('/profile')
+  const profileButtonHandler = (userId) => {
+    history.push('/profile:' + userId)
     setAnchorEl(null)
   }
 
@@ -45,7 +45,9 @@ export default function ProfileMenu() {
         open={Boolean(anchorEl)}
         onClose={()=>{setAnchorEl(null)}}
       >
-        <MenuItem onClick={profileButtonHandler}>Your Profile</MenuItem>
+        <MenuItem onClick={()=>{profileButtonHandler(viewer.user.id)}}>
+          Your Profile
+        </MenuItem>
         <MenuItem onClick={()=>{
           logout()
           handleLogout()}}

@@ -4,7 +4,6 @@ import Home from '../pages/Home';
 import Items from '../pages/Items';
 import Share from '../pages/Share';
 import Profile from '../pages/Profile';
-import OwnerProfile from '../pages/OwnerProfile';
 import { ViewerContext } from '../context/ViewerProvider'
 
 export default () => (
@@ -18,8 +17,7 @@ export default () => (
               <Route path="/" exact component={Home} />
               <Route path="/items" component={Items} />
               <Route path="/share" component={Share} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/owner-profile:userId" component={OwnerProfile} />
+              <Route path="/profile:userId" component={Profile} />
             </Switch>)
         }
         console.log('user is not logged in')

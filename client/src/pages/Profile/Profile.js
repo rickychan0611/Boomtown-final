@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
-const Profile = ({classes, borrowedData, sharedData}) => {
+const Profile = ({classes, borrowedData, sharedData, viewerData}) => {
   
   const randomAvatar = () => {
     const num = Math.floor(Math.random() * 10)
@@ -23,13 +23,13 @@ const Profile = ({classes, borrowedData, sharedData}) => {
       let user = {}
       if (viewer.login){
       user = viewer.login.user
-      console.log(JSON.stringify(user))
       }
       if (viewer.user){
         user = viewer.user
-        console.log(JSON.stringify(user))
         }
       const {id, email, fullname} = user
+      console.log('viewerData!!!' + JSON.stringify(sharedData))
+
         return (
           <Fragment>
           <div  className={classes.root}>
@@ -44,7 +44,7 @@ const Profile = ({classes, borrowedData, sharedData}) => {
               </Grid>
               <Grid item xs>
                 <Typography variant="h2" component="h1">
-                  {fullname}
+                  {sharedData.owneritems[0].fullname}
                 </Typography>
               </Grid>
               </Grid>

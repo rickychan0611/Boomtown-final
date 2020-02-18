@@ -9,7 +9,7 @@ export default function AuthLink(){
 const history = useHistory()
 //when refreshed, send a query to the server and check if there is a cookie token
 const { loading, error, data } = useQuery(VIEWER_QUERY,
-  { variables: { id: '00' } });
+  { variables: { id: 'Authlink' } });
 if (loading) return <h1>LOADING...</h1>;
 if (error) {
     console.log('you are not logged in')

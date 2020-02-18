@@ -43,8 +43,6 @@ const OwnerItems = ({ classes, item }) => {
     const url = 'https://avatars.dicebear.com/v2/human/'+num+'.svg'
     return url
   }
-
-  console.log("VIEW!!!!!!"+ JSON.stringify(item))
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.card}>

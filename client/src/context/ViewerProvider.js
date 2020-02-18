@@ -18,7 +18,7 @@ const ViewerProvider = ({ children }) => {
 
   const getitems = (viewer) => {
     const { data, loading, error } = useQuery(ALL_ITEMS_QUERY,
-      { variables: { id: JSON.stringify(viewer.user.id)} });
+      { variables: { id: JSON.stringify(viewer.user.id) } });
     if (loading) return <h1>LOADING...</h1>;
     if (error) {
       return (
@@ -28,44 +28,38 @@ const ViewerProvider = ({ children }) => {
         </div>
       )
     }
-    if (data){
-  //  console.log('data now!!!!!!!!!!!!!!!' + data.items)
+    if (data) {
+      //  console.log('data now!!!!!!!!!!!!!!!' + data.items)
+    }
   }
-
-      }
 
   const queryViewer = (viewerData) => {
-    // console.log('viewerData from account form line 67: '+ JSON.stringify(viewerData))
     setViewerLoading(false)
     setViewer(viewerData)
-    // console.log('queryViewer set!!! ')
-    // getitems(viewerData)
   }
 
+  const queryItems = () => {
+    // console.log('viewerId in viewrProvider: ' + viewer.user.id)
+    // getAllItems ({ variables: { id: viewer.user.id } });
+  }
 
-
-const queryItems = () => {
-  // console.log('viewerId in viewrProvider: ' + viewer.user.id)
-  // getAllItems ({ variables: { id: viewer.user.id } });
-    
-}
-
-      return (
-        <ViewerContext.Provider 
-        value={
-          {updateViewer: queryViewer,
-            viewer: viewer,
-            viewerLoading: viewerLoading,
-            queryItems : queryItems,
-            setUserId,
-            getUserId : userId,
-            setLogin,
-            getlogin
-          }
-          }>
-        {children}
-      </ViewerContext.Provider>
-    )
+  return (
+    <ViewerContext.Provider
+      value={
+        {
+          updateViewer: queryViewer,
+          viewer: viewer,
+          viewerLoading: viewerLoading,
+          queryItems: queryItems,
+          setUserId,
+          getUserId: userId,
+          setLogin,
+          getlogin
+        }
+      }>
+      {children}
+    </ViewerContext.Provider>
+  )
 }
 
 

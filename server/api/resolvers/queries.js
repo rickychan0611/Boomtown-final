@@ -39,7 +39,7 @@ const queryResolvers = app => ({
   async owneritems(parent, { id }, { pgResource, user }, info) {
     try {
       // console.log('item getOwnerItems run!!!!!')
-      const items = await pgResource.getOwnerItems(user.id);
+      const items = await pgResource.getOwnerItems(id);
       return items;
     } catch (e) {
       throw new ApolloError(e);
@@ -47,9 +47,8 @@ const queryResolvers = app => ({
   },
   async borroweditems(parent, { id }, { pgResource, user }, info) {
     try {
-      // console.log('item getOwnerItems run!!!!!')
-      const items = await pgResource.GetBorrowedItems(user.id);
-      
+      console.log('sq item getOwnerItems run!!!!!' + id)
+      const items = await pgResource.GetBorrowedItems(id);
       return items;
     } catch (e) {
       throw new ApolloError(e);

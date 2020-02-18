@@ -32,8 +32,9 @@ const ItemsContainer = () => {
 // console.log('viewer!!!!' + JSON.stringify(viewer))
   // const [viewerId, setViewerId] = useState()
   const { data, loading, error } = useQuery(ALL_ITEMS_QUERY,
-    { variables: { id: viewer.user.id } });
-  
+    { variables: { id: viewer.user.id },
+    fetchPolicy: 'cache-and-network'
+  });
   
   if (loading) return <h1>LOADING...</h1>;
 

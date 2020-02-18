@@ -4,6 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import TopBar from '../../components/TopBar/TopBar'
 import { OWNER_ITEMS_QUERY } from '../../apollo/queries';
 import { BORROWED_ITEMS_QUERY } from '../../apollo/queries';
+import { VIEWER_QUERY
+} from '../../apollo/queries';
+
 import { useQuery } from '@apollo/react-hooks';
 
 const useStyles = makeStyles(theme => ({
@@ -19,13 +22,28 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const ProfileContainer =(props) => {
+  let userId = parseInt(props.match.params.userId.replace(/:/g, ''))
+  console.log( '!!!' + JSON.stringify(userId))
+
   const classes = useStyles()
   const { data: sharedData, loading: l1, error: e1 } = useQuery(OWNER_ITEMS_QUERY,
-        { fetchPolicy: 'cache-and-network'});
+        { 
+          variables : { id: userId }, 
+          fetchPolicy: 'cache-and-network'
+        }
+        );
 
   const { data: borrowedData, loading: l2, error: e2 } = useQuery(BORROWED_ITEMS_QUERY, 
-        { fetchPolicy: 'cache-and-network'});
-  
+        { 
+          variables : { id: userId }, 
+          fetchPolicy: 'cache-and-network'
+        }
+        );
+
+  const { data: viewerData, loading, error } = useQuery(VIEWER_QUERY,
+        { variables: { id: userId }
+      });
+
     if (l1 || l2) return <h1>LOADING...</h1>;
     if (e1 || e2) {
       return (
@@ -43,9 +61,10 @@ const ProfileContainer =(props) => {
       <TopBar/>
       <Profile 
       className={classes.container}
-      id={props.match.params.id}
+      id={userId}
       sharedData={sharedData}
       borrowedData={borrowedData}
+      viewerData={viewerData}
       />;
     </div>
     )
