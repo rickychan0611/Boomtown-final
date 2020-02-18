@@ -91,11 +91,11 @@ const BorrowButtonModal = ({item, viewer}) => {
   let newItem = {}
   newItem.item = item
   newItem.item.borrower = viewer.user.id
-  console.log('newItem' + newItem)
+  // console.log('newItem' + newItem)
   delete newItem.item.__typename
   
   const handleBorrow = () => {
-    console.log('BORROW_MUTATION ' + JSON.stringify(newItem ))
+    // console.log('BORROW_MUTATION ' + JSON.stringify(newItem ))
     setOpen(false);
     borrowItem({variables: newItem})
   };

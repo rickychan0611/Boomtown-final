@@ -22,7 +22,7 @@ import { OWNER_ITEMS_QUERY } from '../../apollo/queries';
 import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 
 const onValidateFunc = values => {
-  console.log('validate: ' + JSON.stringify(values))
+  // console.log('validate: ' + JSON.stringify(values))
   // loginValues = values
 }
 const ITEM_HEIGHT = 48;
@@ -64,7 +64,7 @@ const ShareItemForm = ({ classes }) => {
 
 
   const onSubmitClicked = () => {
-    console.log('ON SUBMIT!')
+    // console.log('ON SUBMIT!')
     // let addItem = item
     let newItem = {"item" : item }
     item.itemowner = viewer.user.id
@@ -87,7 +87,7 @@ const ShareItemForm = ({ classes }) => {
 
   const fileChangedHandler = (event) => {
     let file = event.target.files[0];// let files = event.target.files
-    console.log(file)
+    // console.log(file)
     let filename = ''
       filename = file.name
       if (filename.lastIndexOf('.') <= 0) {
@@ -112,7 +112,7 @@ const ShareItemForm = ({ classes }) => {
             return downloadURL
           })
             .then((downloadURL) => {
-              console.log('downloadURL' + downloadURL)
+              // console.log('downloadURL' + downloadURL)
               updatePreview('imageUrl', downloadURL)
               // firebase.database().ref('sellers/' + this.id + '/' + item.productName + '/' + item.buyer).update({ 'refundImg': downloadURL })
             })
@@ -164,7 +164,7 @@ const ShareItemForm = ({ classes }) => {
                   onChange={e => {
                     updatePreview(e.target.name, e.target.value)
                     setItem(state)
-                    console.log('setItem ' + JSON.stringify(item))
+                    // console.log('setItem ' + JSON.stringify(item))
                   }
                   }
                   className={classes.accountForm}
@@ -220,7 +220,7 @@ const ShareItemForm = ({ classes }) => {
                             setTagName(e.target.value)
                             setItem(state)
 
-                            console.log('setItem ' + JSON.stringify(tagName))
+                            // console.log('setItem ' + JSON.stringify(tagName))
                           }}
                           input={<Input />}
                           renderValue={selected => selected.join(', ')}

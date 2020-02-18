@@ -27,7 +27,7 @@ const Items = ({ classes, item }) => {
     day: "numeric"
   };
 
-  console.log(item.tags)
+  // console.log(item.tags)
   let formatedTags = ''
   formatedTags = item.tags.replace(/"/g, '')
   formatedTags = formatedTags.replace(/{/g, '')

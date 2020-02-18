@@ -28,7 +28,7 @@ const Profile = ({ classes, borrowedData, sharedData, viewerData }) => {
           user = viewer.user
         }
         const { id, email, fullname, avatar } = user
-        console.log('viewerData!!!' + JSON.stringify(sharedData))
+        // console.log('viewerData!!!' + JSON.stringify(sharedData))
         const getAvatar = () => {
           if (sharedData.owneritems.length > 0) {
             return sharedData.owneritems[0].avatar

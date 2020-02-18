@@ -112,6 +112,7 @@ module.exports = gql`
   input LoginInput {
     email:String!
     password: String!
+    avatar: String
    }
 
    input Token {

@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => ({
 
 const ProfileContainer =(props) => {
   let userId = parseInt(props.match.params.userId.replace(/:/g, ''))
-  console.log( '!!!' + JSON.stringify(userId))
 
   const classes = useStyles()
   const { data: sharedData, loading: l1, error: e1 } = useQuery(OWNER_ITEMS_QUERY,

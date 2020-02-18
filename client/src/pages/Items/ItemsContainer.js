@@ -48,7 +48,7 @@ const ItemsContainer = () => {
   }
   
   if (data) {
-    console.log('item data!!!' + JSON.stringify(data))
+    // console.log('item data!!!' + JSON.stringify(data))
     let sortedItems = data.items
     sortedItems.sort((a,b)=>{
       return (

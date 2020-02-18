@@ -3,7 +3,6 @@ const { ApolloError } = require("apollo-server");
 const queryResolvers = app => ({
 
   viewer(parent, args, { user }, info) {
-    console.log('!!: ', user)
     return user;
   },
   
@@ -30,7 +29,7 @@ const queryResolvers = app => ({
   async items(parent, { id }, { pgResource, user }, info) {
     try {
       const items = await pgResource.getItems(id);
-      console.log('item query run!!!!!' + JSON.stringify(user))
+      // console.log('item query run!!!!!' + JSON.stringify(user))
       return items;
     } catch (e) {
       throw new ApolloError(e);
@@ -47,7 +46,7 @@ const queryResolvers = app => ({
   },
   async borroweditems(parent, { id }, { pgResource, user }, info) {
     try {
-      console.log('sq item getOwnerItems run!!!!!' + id)
+      // console.log('sq item getOwnerItems run!!!!!' + id)
       const items = await pgResource.GetBorrowedItems(id);
       return items;
     } catch (e) {

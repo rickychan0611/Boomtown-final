@@ -23,7 +23,7 @@ const ItemPreviewProvider = ({children}) => {
         setItem(updatedItem)
     }
     const updateTags = (name, value) => {
-        console.log('hello ' + name +' ' + value) 
+        // console.log('hello ' + name +' ' + value) 
     }
 
     const resetPreview = () => {

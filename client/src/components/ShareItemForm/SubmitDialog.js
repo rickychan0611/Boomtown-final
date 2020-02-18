@@ -22,11 +22,11 @@ const SubmitDialog = ( {classes, item} ) => {
   let newItem = {}
   newItem.item = item
   newItem.item.itemowner = viewer.user.id
-  console.log('newItem' + newItem)
+  // console.log('newItem' + newItem)
 
   const [addItem, { data, loading, error }] = useMutation(ADD_ITEM_MUTATION)
     if (error) {
-      console.log("dddddddd"  + error)// return <p>ERROR</p>;
+      // console.log("dddddddd"  + error)// return <p>ERROR</p>;
     }
     if (data) {
       console.log("submDiaglLLLLLL" + JSON.stringify(data))
