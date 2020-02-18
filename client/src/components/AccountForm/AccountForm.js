@@ -72,8 +72,15 @@ const AccountForm = ({ classes }) => {
   if (signUpData) {
     return <Redirect to="/items" />
   }
+  const randomAvatar = () => {
+    const num = Math.floor(Math.random() * 10)
+    const url = 'https://avatars.dicebear.com/v2/identicon/'+num+'.svg'
+    return url
+  }
 
   const onSumbit = values => {
+    values.avatar = randomAvatar()
+    console.log('singin values: ' + JSON.stringify(values))
     setErrorMsg('User was not found. Invalid e-mail or password. Please try again')
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email))
     {

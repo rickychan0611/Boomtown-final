@@ -7,10 +7,10 @@ function tagsQueryString(tags, itemid, result) {
 
 module.exports = postgres => {
   return {
-    async createUser({ fullname, email, password }) {
+    async createUser({ fullname, email, password, avatar }) {
       const newUserInsert = {
-        text: "INSERT INTO users (fullname, email, password) VALUES ($1, $2, $3) RETURNING *", // @TODO: Authentication - Server
-        values: [fullname, email, password],
+        text: "INSERT INTO users (fullname, email, password, avatar) VALUES ($1, $2, $3, $4) RETURNING *", // @TODO: Authentication - Server
+        values: [fullname, email, password, avatar],
       };
       try {
         const user = await postgres.query(newUserInsert.text, newUserInsert.values);

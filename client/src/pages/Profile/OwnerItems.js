@@ -3,15 +3,14 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import ViewerProvider, { ViewerContext } from '../../context/ViewerProvider'
+import { ViewerContext } from '../../context/ViewerProvider'
+import { useHistory } from 'react-router-dom'
 
 
 const OwnerItems = ({ classes, item }) => {
@@ -43,6 +42,13 @@ const OwnerItems = ({ classes, item }) => {
     const url = 'https://avatars.dicebear.com/v2/human/'+num+'.svg'
     return url
   }
+
+  const history = useHistory()
+
+  const handleUserClicked = (userId) => {
+    history.push('/profile:' + userId)
+  }
+
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.card}>
@@ -52,6 +58,7 @@ const OwnerItems = ({ classes, item }) => {
             image={item.imageurl}
             title={item.title}
           />
+          <CardActionArea>
           <CardHeader
             avatar={
               <Avatar aria-label="recipe" className={classes.avatar} 
@@ -59,9 +66,11 @@ const OwnerItems = ({ classes, item }) => {
                 >
                 </Avatar> 
             }
-            title={fullname()}
+            title={item.fullname}
             subheader={"Added Date: " + new Date(item.created).toLocaleString("en", options)}
-          />
+            onClick={()=>{handleUserClicked(item.itemowner)}}
+          />       
+           </CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h3" m={0}>
               {item.title}

@@ -63,7 +63,7 @@ const mutationResolvers = app => ({
   async signup(
     parent,
     {
-      user: { fullname, email, password },
+      user: { fullname, email, password, avatar },
     },
     { pgResource, req },
   ) {
@@ -89,6 +89,7 @@ const mutationResolvers = app => ({
         fullname,
         email,
         password: hashedPassword,
+        avatar
       });
       // console.log('token')÷
       const token = generateToken(user, app.get("JWT_SECRET"));

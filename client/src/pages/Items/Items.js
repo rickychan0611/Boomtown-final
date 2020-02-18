@@ -44,10 +44,6 @@ const Items = ({ classes, item }) => {
 
   const handleUserClicked = (userId) => {
     history.push('/profile:' + userId)
-    // return (
-    //   <Redirect to='/profile' />
-    // // <Route path="/profile" component={Profile} />
-    // )
   }
 
   return (

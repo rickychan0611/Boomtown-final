@@ -42,6 +42,7 @@ module.exports = gql`
     items: [Item]
     borrowed: [Item]
     password: String
+    avatar: String
   }
   
 
@@ -115,9 +116,10 @@ module.exports = gql`
    }
 
    input SignupInput {
-     fullname: String
-     email: String
-     password: String
+     fullname: String!
+     email: String!
+     password: String!
+     avatar: String
    }
 
   type Mutation {

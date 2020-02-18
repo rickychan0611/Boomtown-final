@@ -122,6 +122,7 @@ query GetUserByID ($id: ID!){
     id
     fullname
     email
+    avatar
     items{
       id
       title
@@ -148,6 +149,7 @@ export const SIGNUP_MUTATION = gql`
         id
         fullname
         email
+        avatar
       }
     }
   }
