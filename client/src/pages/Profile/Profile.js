@@ -12,20 +12,22 @@ import { useQuery } from '@apollo/react-hooks';
 import { OWNER_ITEMS_QUERY } from '../../apollo/queries';
 import { BORROWED_ITEMS_QUERY } from '../../apollo/queries';
 
-const Profile = ({classes}) => {
+const Profile = ({classes, borrowedData, sharedData}) => {
+  // const { data: sharedData, loading: l1, error: e1 } = useQuery(OWNER_ITEMS_QUERY);
+  // const { data: borrowedData, loading: l2, error: e2 } = useQuery(BORROWED_ITEMS_QUERY);
 
-  const { data: sharedData, loading: l1, error: e1 } = useQuery(OWNER_ITEMS_QUERY);
-  const { data: borrowedData, loading: l2, error: e2 } = useQuery(BORROWED_ITEMS_QUERY);
-
-  if (l1 || l2) return <h1>LOADING...</h1>;
-  if (e1 || e2) {
-    return (
-      <div>
-        <p>ERROR in item</p>
-        <p>{JSON.stringify(e1, e2)}</p>
-      </div>
-    )
-  }
+  // if (l1 || l2) return <h1>LOADING...</h1>;
+  // if (e1 || e2) {
+  //   return (
+  //     <div>
+  //       <p>ERROR in item</p>
+  //       <p>{JSON.stringify(e1, e2)}</p>
+  //     </div>
+  //   )
+  // }
+  // if (!sharedData || !borrowedData) {
+  //   return <p>Not found</p>
+  // }
   
   const randomAvatar = () => {
     const num = Math.floor(Math.random() * 10)
@@ -47,6 +49,7 @@ const Profile = ({classes}) => {
         }
       const {id, email, fullname} = user
         return (
+          <Fragment>
           <div  className={classes.root}>
             <Container maxWidth="lg" className={classes.container}>
             <Paper className={classes.root}>
@@ -96,8 +99,8 @@ const Profile = ({classes}) => {
               </Grid>
               </div> : null}
             </Container>
-            
           </div>
+          </Fragment>
         )
       }}
     

@@ -71,7 +71,7 @@ const OwnerItems = ({ classes, item }) => {
             <Typography gutterBottom variant="body2" color="textSecondary" component="p">
               {formatedTags}
           </Typography>
-            <Typography gutterBottom variant="subtitle1" color="black" component="p" mt={8}>
+            <Typography gutterBottom variant="subtitle1" component="p" mt={8}>
             {item.description}
           </Typography>
           </CardContent>

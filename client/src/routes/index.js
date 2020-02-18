@@ -14,7 +14,7 @@ export default () => (
         // console.log('!!!',viewer.user)
         if (viewer || getLogin == true) {  
           setLogin(true)    
-         console.log('user is logged in' + JSON.stringify(viewer))
+        //  console.log('user is logged in' + JSON.stringify(viewer))
         //  console.log(JSON.stringify(viewer))
         //  console.log('loggedIn' + loggedIn)
          return (    

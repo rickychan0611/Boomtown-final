@@ -29,7 +29,7 @@ const SubmitDialog = ( {classes, item} ) => {
       console.log("dddddddd"  + error)// return <p>ERROR</p>;
     }
     if (data) {
-      console.log("submDiagl" + data)
+      console.log("submDiaglLLLLLL" + JSON.stringify(data))
     }
     const handleClickOpen = () => {
       setOpen(true);
@@ -38,13 +38,13 @@ const SubmitDialog = ( {classes, item} ) => {
     const handleAddAnotherItem = () => {
       setOpen(false);
       addItem({variables: newItem})
-      console.log('@@@@item' + JSON.stringify(newItem))
+      // console.log('@@@@item' + JSON.stringify(newItem))
     };
 
     const handleGoToItemPage = () => {
       setOpen(false);
       addItem({variables: newItem})
-      console.log('@@@@item' + JSON.stringify(newItem))
+      // console.log('@@@@item' + JSON.stringify(newItem))
       history.push('/items')
     };
   
@@ -74,7 +74,6 @@ const SubmitDialog = ( {classes, item} ) => {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
             You may add another item if you like. To add another item click 'Add another item'. To view your item, click 'Back to items page'.
-              {JSON.stringify(item)}
             </DialogContentText>
           </DialogContent>
           <DialogActions>

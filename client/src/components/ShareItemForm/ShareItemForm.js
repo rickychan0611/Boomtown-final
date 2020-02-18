@@ -81,9 +81,9 @@ const ShareItemForm = ({ classes }) => {
     let newItem = {"item" : item }
     item.itemowner = viewer.user.id
     for (let i in item.tags) {
-      console.log (i)
+      // console.log (i)
     }
-    console.log('clicked@@@' + JSON.stringify(newItem))
+    // console.log('clicked@@@' + JSON.stringify(newItem))
     if (item !== null) {
       // console.log(JSON.stringify(item))
       addItem({variables: newItem}) 

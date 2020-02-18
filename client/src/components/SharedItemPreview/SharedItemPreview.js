@@ -54,7 +54,7 @@ export class SharedItemPreview extends Component {
                                                 )
                                             })}
                                         </Typography>
-                                        <Typography gutterBottom variant="subtitle1" color="black" component="p" mt={8}>
+                                        <Typography gutterBottom variant="subtitle1" component="p" mt={8}>
                                             {item.description}
                                         </Typography>
                                     </CardContent>

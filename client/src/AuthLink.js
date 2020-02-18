@@ -15,7 +15,7 @@ if (error) {
     console.log('you are not logged in')
     return <Redirect to='/' />
 }
-console.log('auth link'+ JSON.stringify(data))
+// console.log('auth link'+ JSON.stringify(data))
 return (
     <ViewerContext.Consumer>
       {({updateViewer}) => {

@@ -14,7 +14,7 @@ const ViewerProvider = ({ children }) => {
   const [userId, setUserId] = useState('')
   const [getlogin, setLogin] = useState(false)
 
-  console.log('viewerprovider run')
+  // console.log('viewerprovider run')
 
   const getitems = (viewer) => {
     const { data, loading, error } = useQuery(ALL_ITEMS_QUERY,
@@ -29,23 +29,23 @@ const ViewerProvider = ({ children }) => {
       )
     }
     if (data){
-   console.log('data now!!!!!!!!!!!!!!!' + data.items)
+  //  console.log('data now!!!!!!!!!!!!!!!' + data.items)
   }
 
       }
 
   const queryViewer = (viewerData) => {
-    console.log('viewerData from account form line 67: '+ JSON.stringify(viewerData))
+    // console.log('viewerData from account form line 67: '+ JSON.stringify(viewerData))
     setViewerLoading(false)
     setViewer(viewerData)
-    console.log('queryViewer set!!! ')
+    // console.log('queryViewer set!!! ')
     // getitems(viewerData)
   }
 
 
 
 const queryItems = () => {
-  console.log('viewerId in viewrProvider: ' + viewer.user.id)
+  // console.log('viewerId in viewrProvider: ' + viewer.user.id)
   // getAllItems ({ variables: { id: viewer.user.id } });
     
 }

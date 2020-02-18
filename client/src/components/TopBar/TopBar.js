@@ -33,7 +33,6 @@ const TopBar = () => {
   const classes = useStyles();
   const history = useHistory()
   const clickHandler = () => {
-    console.log('share clicked')
     history.push('/share')
   }
   return (
@@ -49,7 +48,7 @@ const TopBar = () => {
             color="primary"
             aria-label="add"
             onClick={clickHandler}>
-            <Icon color="black" className={classes.logo}>add_circle</Icon>
+            <Icon className={classes.logo}>add_circle</Icon>
             Share Something
             </Fab>
           <ProfileMenu />

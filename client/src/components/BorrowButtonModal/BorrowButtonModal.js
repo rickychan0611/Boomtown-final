@@ -13,6 +13,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { BORROW_MUTATION } from '../../apollo/queries';
 import { useMutation } from '@apollo/react-hooks';
+import { BORROWED_ITEMS_QUERY } from '../../apollo/queries';
 import { useHistory } from "react-router-dom";
 
 
@@ -65,10 +66,16 @@ Fade.propTypes = {
 };
 
 const BorrowButtonModal = ({item, viewer}) => {
-  const [borrowItem, { data, loading, error }] = useMutation(BORROW_MUTATION)
+  const [ borrowItem ] = useMutation(BORROW_MUTATION, {
+    refetchQueries: () => [{
+        query: BORROWED_ITEMS_QUERY,
+    }],
+    // onCompleted: refetch,
+  });
 
-  console.log('button viewer: ' + JSON.stringify(viewer))
-  console.log('button item: ' + JSON.stringify(item))
+
+  // console.log('button viewer: ' + JSON.stringify(viewer))
+  // console.log('button item: ' + JSON.stringify(item))
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -86,17 +93,6 @@ const BorrowButtonModal = ({item, viewer}) => {
   newItem.item.borrower = viewer.user.id
   console.log('newItem' + newItem)
   delete newItem.item.__typename
-  // let newItem = {}
-  // // newItem.item.id = item.id
-  // newItem.item.title = item.title
-  // newItem.item.description = item.description
-  // newItem.item.imageurl = item.imageurl
-  // newItem.item.itemowner = item.itemowner
-  // newItem.item.created = item.created
-  // newItem.item.fullname = item.fullname
-  // newItem.item.borrower = viewer.user.id
-  // let borrower = {}
-  // borrower = viewer.user.id
   
   const handleBorrow = () => {
     console.log('BORROW_MUTATION ' + JSON.stringify(newItem ))
